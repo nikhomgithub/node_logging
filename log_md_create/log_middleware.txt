@@ -1,0 +1,33 @@
+https://www.youtube.com/watch?v=OVMF2n_eWOA
+
+
+$npm install bunyan
+
+const bunyan = require('bunyan')
+
+const logger = bunyan.createLogger({name:'myTest'})
+
+
+logger.info = ('1st test');
+logger.info = ('2nd test');
+
+/* on console
+{"name":"myTest","hostname":"Nikhm","pid":6428,"level":30,"msg":"1st test","time":"2016-01-16T05:32:15.127Z","v":0}
+{"name":"myTest","hostname":"Nikhm","pid":6428,"level":30,"msg":"2nd test","time":"2016-01-16T05:32:15.165Z","v":0}
+
+*/ 
+
+middleware
+
+function(req,res,next)=>{
+    ...
+    next();
+};
+
+//to use this middleware for all route
+app.use(middleware);
+
+//to use for some route
+app.get('/',middleware(),(req,res)=>{
+
+})

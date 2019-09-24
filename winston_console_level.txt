@@ -1,0 +1,116 @@
+https://www.youtube.com/watch?v=DIzJC8wRp-s
+
+Logging in JavaScript Best Practices
+freeCodeCamp.org
+
+People do not want to talk about logging.
+
+//Bad logging
+console.log("Something")
+
+//Bad logging
+console.log("error: "+err.message);
+console.log("faszom");
+console.log("finish at "+ Date.now());
+
+//Good logging
+Context
+Purpose (Parsable,scannable)
+Importance (Money Transaction request)
+Format (debugging, UX)
+
+
+console-log-level
+$npm install console-log-level
+
+var log = require('console-log-level')({ level: 'info' })
+log.trace('a') // will not do anything
+log.debug('b') // will not do anything
+log.info('c')  // will output 'c\n' on STDOUT
+log.warn('d')  // will output 'd\n' on STDERR
+log.error('e') // will output 'e\n' on STDERR
+log.fatal('f') // will output 'f\n' on STDERR
+
+Configure the logger by passing an options object:
+
+var log = require('console-log-level')({
+  prefix: function (level) {
+    return new Date().toISOString()
+  },
+  level: 'info'
+})
+
+level
+
+A string to specify the log level. Defaults to info.
+prefix
+
+Specify this option if you want to set a prefix for all log messages. This must be a string or a function that returns a string.
+
+Will get the level of the currently logged message as the first argument.
+stderr
+
+A boolean to log everything to stderr. Defauls to false.
+
+
+[True, 03 Apr 2018 17:16:18 GMT] Server received [46] timestamps from [82.536.22.237]
+
+
+[True, 03 Apr 2018 17:16:12 GMT] user[32] logged in
+[True, 03 Apr 2018 17:16:12 GMT] user[32] logged in
+[True, 03 Apr 2018 17:16:12 GMT] user[32] logged in
+[True, 03 Apr 2018 17:16:12 GMT] user[32] logged in
+[True, 03 Apr 2018 17:16:12 GMT] user[32] logged in
+
+
+Logging Rule
+- Remember the Reader
+- No Personal Data
+- Answer question
+
+======================================
+https://www.youtube.com/watch?v=To9F0Xv3adk
+Winston & Log4js ===> popular
+
+Winston 
+
+const winston = require('winston');
+
+//Logger configuration
+const logConfiguration = {
+    'transport':[
+        new winston.transports.Console()
+    ]
+};
+
+//Create the logger
+const logger = winston.createLogger(logConfiguration);
+
+//Log a message
+logger.log({
+    message:'Hello, Winston',
+    level:'info'
+})
+
+//Log a message
+logger.info('Hello, Winston');
+
+==============================
+
+const winston = require('winston');
+
+//Logger configuration
+const logConfiguration = {
+    'transports' : [
+        new winston.transports.File({
+            filename:'./logs/example-2.log'
+        })
+    ]
+};
+
+//Create the logger
+const logger = winston.createLogger(logConfiguration);
+
+
+//log a message
+logger.info('Hello, Winston');

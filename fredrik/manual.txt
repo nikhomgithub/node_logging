@@ -1,0 +1,53 @@
+
+Log is to keep tracking what happen in application
+
+(log timestamp)
+1. Log query from user before access to database 
+2. Log result from database 
+3. Log request from user 
+4. Log response to user 
+
+Similar to batch jobs (schudle jobs) in linux we log when start and finish , or fail (timestamp need)
+
+
+User got this one on Browser
+{"error":"Invalid query"}
+
+Log
+{"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Incoming request {method:'GET'}","time":"2018-02-11T12:58:26.151Z","v":0}
+{"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Incoming request query {query:{}}","time":"2018-02-11T12:58:26.151Z","v":0}
+{"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Request failed return error {error:'Invalid query'}","time":"2018-02-11T12:58:28.151Z","v":0}
+
+check code
+==========
+src
+  |_middleware
+  |          |_isValid.js //this one require logger.js
+  |_logger.js 
+  |_app.js
+
+
+
+//isValid.js
+//we put this one as middleware in every request
+
+const logger = require("../logger");
+
+module.exports = (req,res,next)=>{
+    logger.info("Incoming request query",{query: req.query});
+
+    if(req.query.q==1){
+        const error = { error : "Invalid number"} ;
+        logger.info("Request failed returning error",error);    //keep in log.json
+        return res.json(error);
+    }
+    else if (!req.query.q){
+        const error = { error : "Invalid query"};
+        logger.info("Request failed returning error",error);    //keep in log.json
+        return res.json(error);
+    }
+    return next();
+
+}
+
+
