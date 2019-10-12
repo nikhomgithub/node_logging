@@ -50,4 +50,39 @@ module.exports = (req,res,next)=>{
 
 }
 
+==================================
+==================================
+==================================
+fredrik
+
+app.js
+  server.js
+  /src
+    app.js
+    /lib
+      User.js
+      logger.js
+      mask.js
+      
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
