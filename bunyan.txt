@@ -23,8 +23,72 @@ Log
 {"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Incoming request {method:'GET'}","time":"2018-02-11T12:56:26.151Z","v":0}
 {"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Incoming request query {query:{q:1}}","time":"2018-02-11T12:57:26.151Z","v":0}
 {"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Request failed return error {error:'Invalid number'}","time":"2018-02-11T12:58:28.151Z","v":0}
+====================================
+====================================
+====================================
+How to use bunyan
 
+npm install bunyan
+--------------------------------------------------------
+1)
+//app.js
+var bunyan = require('bunyan');
+var log = bunyan.createLogger({name: 'ShotPitch'});
+log.info('Hello World');
+log.warn({lang: 'fr'}, 'au revoir');
 
+//Now it show in Terminal
+$ node app.js
+{"name":"ShotPitch","hostname":"MBP.Home","pid":5354,"level":30,
+        "msg":"hi","time":"2016-03-26T18:46:23.851Z","v":0}
+{"name":"ShotPitch","hostname":"MBP.Home","pid":5354,"level":40,"lang":"fr",
+        "msg":"aurevoir","time":"2016-03-26T18:46:23.853Z","v":0}
+--------------------------------------------------------
+2)
+//app.js
+var bunyan = require('bunyan');
+var log = bunyan.createLogger({
+    name: 'ShotPitch',
+    streams: [{
+        path: '/var/log/ShotPitch.log',      
+        type: 'file'
+    }]
+});
+
+Now it save in file in /var/log/ShotPitch.log
+but cause a lot memory
+--------------------------------------------------------
+3) Log Rotation //Limit memory 
+var bunyan = require('bunyan');
+var log = bunyan.createLogger({
+    name: 'ShotPitch',
+    streams: [{
+        type: 'rotating-file',
+        path: '/var/log/ShotPitch.log',
+        period: '1d',     // daily rotation
+        count: 3          // keep 3 back copies
+    }]
+});
+====================================
+====================================
+====================================
+npm install express-bunyan-logger
+------------------------------------
+
+app.use(require('express-bunyan-logger')({name: 'ShotPitch',
+  streams: [{
+    type: 'rotating-file',
+    level: 'info',                  // loging level
+    path: '/var/log/shotpitch.log',
+    period: '1d',   // daily rotation
+    count: 3,        // keep 3 back copies
+  }]
+}));
+
+Although we can get most of these info from nginx and error logs
+=====================================
+=====================================
+=====================================
 check code
 ==========
 //isValid.js
