@@ -14,8 +14,10 @@ User got this one on Browser
 {"error":"Invalid query"}
 
 Log
-{"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Incoming request {method:'GET'}","time":"2018-02-11T12:58:26.151Z","v":0}
+{"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Incoming request   {method:'GET'}","time":"2018-02-11T12:58:26.151Z","v":0}
+
 {"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Incoming request query {query:{}}","time":"2018-02-11T12:58:26.151Z","v":0}
+
 {"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Request failed return error {error:'Invalid query'}","time":"2018-02-11T12:58:28.151Z","v":0}
 
 check code
@@ -62,10 +64,22 @@ app.js
     /lib
       User.js
       logger.js
-      mask.js
+      mask.js   //for secure log file with password
       
-    
-
+-----------------------------------
+logger.js
+  const log = bunyan.createLogger
+    stdout
+    logs.json
+-----------------------------------
+User.js
+  findUser = query => {
+    return {username,password,email,address}
+-----------------------------------
+app.js
+  app.get("/",(req,res,nex)=>{
+  logger.info ( "Incoming request query",{query: req.query}  ) 
+  logger.info ( "Request failed returning error",error )
 
 
 
