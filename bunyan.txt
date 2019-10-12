@@ -2,19 +2,21 @@
 Log is to keep tracking what happen in application
 
 (log timestamp)
-1. Log query from user before access to database 
+1. Log query from user before access to database || Log request from user 
 2. Log result from database 
-3. Log request from user 
 4. Log response to user 
 
-Similar to batch jobs (schudle jobs) in linux we log when start and finish , or fail (timestamp need)
+Similar to batch jobs (schudle jobs) in linux we log when 
+    start and 
+    finish , or 
+    fail (timestamp need)
 
 
 User got this one on Browser
 {"error":"Invalid query"}
 
 Log
-{"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Incoming request {method:'GET'}","time":"2018-02-11T12:40:26.151Z","v":0}
+{"name":"myapp", "hostname":"Nikhom", "pid":2099, "level":30, "msg":"Incoming request {method:'GET'}","time":"2018-02-11T12:40:26.151Z","v":0}
 {"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Incoming request query {query:{}}","time":"2018-02-11T12:41:26.151Z","v":0}
 {"name":"myapp","hostname":"Nikhom","pid":2099,"level":30,"msg":"Request failed return error {error:'Invalid query'}","time":"2018-02-11T12:42:28.151Z","v":0}
 
